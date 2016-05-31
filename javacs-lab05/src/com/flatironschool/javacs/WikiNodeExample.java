@@ -17,21 +17,21 @@ import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 public class WikiNodeExample {
-	
+
 	public static void main(String[] args) throws IOException {
 		String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
-		
+
 		// download and parse the document
 		Connection conn = Jsoup.connect(url);
 		Document doc = conn.get();
-		
+
 		// select the content text and pull out the paragraphs.
 		Element content = doc.getElementById("mw-content-text");
-				
+
 		// TODO: avoid selecting paragraphs from sidebars and boxouts
 		Elements paras = content.select("p");
 		Element firstPara = paras.get(0);
-		
+
 		recursiveDFS(firstPara);
 		System.out.println();
 
@@ -62,7 +62,7 @@ public class WikiNodeExample {
 			// push the children onto the stack in reverse order
 			List<Node> nodes = new ArrayList<Node>(node.childNodes());
 			Collections.reverse(nodes);
-			
+
 			for (Node child: nodes) {
 				stack.push(child);
 			}
